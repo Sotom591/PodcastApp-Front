@@ -1,4 +1,4 @@
-GENRES_URL = 'https://listennotes.p.rapidapi.com/api/v1/genres'
+const GENRES_URL = 'https://listennotes.p.rapidapi.com/api/v1/genres'
 
 const fetchGenres = (genres) =>{
   return {type: "GENRES", genres}
