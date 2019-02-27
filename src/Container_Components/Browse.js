@@ -3,11 +3,24 @@ import {fetchingGenres} from '../Redux/actions';
 import { connect } from 'react-redux';
 
 class Browse extends React.Component {
-  render() {
-    return (
-      <div>Browse page</div>
+
+  componentDidMount(){
+    this.props.dispatch(fetchingGenres())
+  }
+
+  render(){
+    return(
+      <div>
+        Browse
+      </div>
     )
   }
 }
 
-export default Browse;
+const mapStateToProps = (state) => {
+  return {
+    genres: state.genres
+  }
+}
+
+export default connect(mapStateToProps)(Browse)

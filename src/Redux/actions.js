@@ -1,3 +1,6 @@
+var unirest = require('unirest');
+const API_KEY = process.env.REACT_APP_LISTENNOTES_API_KEY
+
 const GENRES_URL = 'https://listennotes.p.rapidapi.com/api/v1/genres'
 
 const RAILS_URL = 'http://localhost:3000'
@@ -8,11 +11,10 @@ const fetchGenres = (genres) =>{
 
 const fetchingGenres = () =>{
   return (dispatch) =>{
-    fetch(GENRES_URL)
-      .then(response => response.json())
-      .then(data => {
-        dispatch(fetchGenres(data))
-      })
+    unirest.get("https://listennotes.p.rapidapi.com/api/v1/genres")
+    .header("X-RapidAPI-Key", API_KEY)
+    .end((result) => dispatch(fetchGenres(result.body.genres))
+  );
   }
 }
 
