@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import Home from './presentationalComponents/Home.js'
-import {Switch} from 'react-router-dom'
+import {Switch, Route} from 'react-router-dom'
 
 //for api key use
 //API_KEY = process.env.REACT_APP_LISTENNOTES_API_KEY
