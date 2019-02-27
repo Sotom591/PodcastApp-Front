@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import {Switch, Route} from 'react-router-dom'
 import './App.css';
-import Home from './containerComponents/Home'
-import Browse from './containerComponents/Browse'
-import EditProfilePage from './containerComponents/EditProfilePage'
-import EpisodePage from './containerComponents/EpisodePage'
-import GenrePage from './containerComponents/GenrePage'
-import Login from './containerComponents/Home'
-import PodcastPage from './containerComponents/PodcastPage'
-import ProfilePage from './containerComponents/ProfilePage'
-import SearchResultPage from './containerComponents/SearchResultPage'
-import Signup from './containerComponents/EpisodePage'
+import Home from './Container_Components/Home'
+import Browse from './Container_Components/Browse'
+import EditProfilePage from './Container_Components/EditProfilePage'
+import EpisodePage from './Container_Components/EpisodePage'
+import GenrePage from './Container_Components/GenrePage'
+import Login from './Container_Components/Home'
+import PodcastPage from './Container_Components/PodcastPage'
+import ProfilePage from './Container_Components/ProfilePage'
+import SearchResultPage from './Container_Components/SearchResultPage'
+import Signup from './Container_Components/EpisodePage'
 
 //for api key use
 //API_KEY = process.env.REACT_APP_LISTENNOTES_API_KEY
