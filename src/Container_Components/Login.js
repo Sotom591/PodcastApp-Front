@@ -1,9 +1,12 @@
 import React from "react"
+import LoginForm from "../Presentational_Components/LoginForm"
 
 
 const Login = (props) => {
   return(
-    <div> Login </div>
+    <div>
+      <LoginForm />
+    </div>
   )
 }
 

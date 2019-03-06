@@ -1,6 +1,6 @@
 const genresReducer = (state = [], action) =>{
   switch (action.type) {
-    case "GENRES":
+    case "FETCH_GENRES":
       return action.genres
     default:
       return state
