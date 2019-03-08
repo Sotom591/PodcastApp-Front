@@ -46,3 +46,19 @@ export const fetchingUser = (user) => {
     })
   }
 }
+
+export const checkToken = (token) => {
+  return (dispatch) => {
+    fetch(`${RAILS_URL}/api/v1/home`, {
+    method: "GET",
+    headers: {
+      "Authentication": `Bearer ${token}`
+      }
+    })
+    .then(res => res.json())
+    .then(data => {
+      console.log(`You're logged in as ${data.user.username}`)
+      dispatch(fetchUser(data.user))
+    })
+  }
+}

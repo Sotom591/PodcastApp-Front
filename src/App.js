@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import {Switch, Route} from 'react-router-dom'
+import { connect } from 'react-redux'
+import { checkToken } from './Redux/actions'
 import './App.css';
 import Home from './Container_Components/Home'
 import Browse from './Container_Components/Browse'
@@ -16,6 +18,10 @@ import Signup from './Container_Components/EpisodePage'
 //API_KEY = process.env.REACT_APP_LISTENNOTES_API_KEY
 
 class App extends Component {
+
+  componentDidMount(){
+    this.props.checkToken(localStorage.token)
+  }
   render() {
     return (
       <div className="App">
@@ -36,4 +42,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default connect(null, {checkToken})(App);
