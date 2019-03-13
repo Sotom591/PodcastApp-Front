@@ -1,10 +1,13 @@
 import React from "react"
+import SignUpForm from "../Presentational_Components/SignUpForm"
 
 
-const Signup = (props) => {
+const SignUp = (props) => {
   return(
-    <div> Signup </div>
+    <div>
+      <SignUpForm />
+    </div>
   )
 }
 
-export default Signup
+export default SignUp

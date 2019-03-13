@@ -12,7 +12,7 @@ import Login from './Container_Components/Login'
 import PodcastPage from './Container_Components/PodcastPage'
 import ProfilePage from './Container_Components/ProfilePage'
 import SearchResultPage from './Container_Components/SearchResultPage'
-import Signup from './Container_Components/EpisodePage'
+import SignUp from './Container_Components/SignUp'
 
 //for api key use
 //API_KEY = process.env.REACT_APP_LISTENNOTES_API_KEY
@@ -27,7 +27,7 @@ class App extends Component {
       <div className="App">
         <Switch>
           <Route exact path='/home' component={ Home } />
-          <Route exact path='/sign_up' component={ Signup } />
+          <Route exact path='/sign_up' component={ SignUp } />
           <Route exact path='/login' component={ Login } />
           <Route exact path='/profile/:username' component={ ProfilePage } />
           <Route exact path='/profile/:username/:edit' component={ EditProfilePage } />
