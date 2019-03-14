@@ -23,6 +23,13 @@ class SignUpForm extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault()
     this.props.signUpUser(this.state)
+    this.setState({
+      firstName: '',
+      lastName: '',
+      email: '',
+      username: '',
+      password: ''
+    });
   };
 
   render(){
@@ -57,4 +64,4 @@ class SignUpForm extends React.Component {
   }
 }
 
-export default connect(null, {signUpUser})(SignUpForm)
+export default connect(null, {signUpUser})(SignUpForm);

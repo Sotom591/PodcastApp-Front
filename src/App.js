@@ -20,15 +20,18 @@ import SignUp from './Container_Components/SignUp'
 class App extends Component {
 
   componentDidMount(){
+    if (localStorage.token){
     this.props.checkToken(localStorage.token)
+    }
   }
+
   render() {
     return (
       <div className="App">
         <Switch>
-          <Route exact path='/home' component={ Home } />
-          <Route exact path='/sign_up' component={ SignUp } />
           <Route exact path='/login' component={ Login } />
+          <Route exact path='/sign_up' component={ SignUp } />
+          <Route exact path='/home' component={ Home } />
           <Route exact path='/profile/:username' component={ ProfilePage } />
           <Route exact path='/profile/:username/:edit' component={ EditProfilePage } />
           <Route exact path='/podcast/:id' component={ PodcastPage } />

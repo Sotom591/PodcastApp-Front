@@ -76,16 +76,16 @@ export const signUpUser = (user) => {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
       },
-      body: JSON.stringify(user)
+      body: JSON.stringify({ user })
     }).then(r => r.json())
     .then(data => {
       if(data.error){
         alert(`Either username is already taken or password does not meet requirements. Enter a valid username and/or password.`)
-      } else{
-        console.log(`You're logged in as ${data.user.username}`)
-        dispatch(fetchUser(data.user_info))
-        localStorage.setItem('token', data.token)
+      } else {
+          console.log("success!", data)
+          dispatch(fetchUser(data.user_info))
+          localStorage.setItem('token', data.token)
+          alert(`New User Created!`)
       }
-    })
-  }
+    })};
 }
