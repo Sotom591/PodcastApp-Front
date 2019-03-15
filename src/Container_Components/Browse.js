@@ -12,6 +12,12 @@ class Browse extends React.Component {
     return(
       <div>
         Browse
+        <h1>Genres</h1>
+        <div>
+          {this.props.genres.map(genre => (
+            <h2>{genre.name}</h2>
+          ))}
+        </div>
       </div>
     )
   }

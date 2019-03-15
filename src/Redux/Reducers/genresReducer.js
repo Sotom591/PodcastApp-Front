@@ -2,9 +2,11 @@ const genresReducer = (state = [], action) =>{
   switch (action.type) {
     case "GENRE":
       let genres = [...state]
-      if (action.genre['parent_id'] === 67){
-        genres.push(action.genre)
-      }
+      action.genres.forEach(genre =>{
+        if (genre['parent_id'] === 67){
+          genres.push(genre)
+        }
+      })
       return genres
     default:
       return state
