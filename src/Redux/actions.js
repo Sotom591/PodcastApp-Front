@@ -33,7 +33,7 @@ const setGenre = (genres) =>{
 //   }
 // }
 
-const fetchingGenres = () =>{
+export const fetchingGenres = () =>{
   return (dispatch) =>{
     fetch(`${RAILS_URL}/genres`)
     .then(response => response.json())
