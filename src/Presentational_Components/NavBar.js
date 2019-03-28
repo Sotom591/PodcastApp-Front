@@ -1,11 +1,34 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import { fetchUser } from '../Redux/actions'
 
-const NavBar = (props) => {
-  return(
-    <div>
-      NavBar
-    </div>
-  )
+
+class NavBar extends React.Component {
+  logout = () => {
+    this.props.fetchUser(null);
+    localStorage.clear()
+  }
+
+  render(){
+    return(
+      <div
+        style={{
+          border: '1px solid black'
+        }}
+        >
+        NavBar
+        <button onClick={this.logout}>
+          Logout
+        </button>
+      </div>
+    )
+  }
 }
 
-export default NavBar
+const mapStateToProps = state => {
+  return {
+    user: state.user
+  }
+}
+
+export default connect(mapStateToProps, { fetchUser })(NavBar)

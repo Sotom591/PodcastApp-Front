@@ -71,7 +71,7 @@ export const fetchingUser = (user) => {
 }
 
 //checks token thruout app so user persists//
-
+// changed the returned JSON object to just be the UserSerializer object //
 export const checkToken = (token) => {
   return (dispatch) => {
     fetch(`${RAILS_URL}/home`, {
@@ -81,9 +81,9 @@ export const checkToken = (token) => {
       }
     })
     .then(res => res.json())
-    .then(data => {
-      console.log(`You're logged in as ${data.user.username}`)
-      dispatch(fetchUser(data.user))
+    .then(user => {
+      console.log(user)
+      dispatch(fetchUser(user))
     })
   }
 }
