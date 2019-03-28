@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Switch, Route} from 'react-router-dom'
+import { Switch, Route, Redirect, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { checkToken } from './Redux/actions'
 import './App.css';
@@ -21,7 +21,7 @@ class App extends Component {
 
   componentDidMount(){
     if (localStorage.token){
-    this.props.checkToken(localStorage.token)
+      this.props.checkToken(localStorage.token)
     }
   }
 
@@ -29,9 +29,15 @@ class App extends Component {
     return (
       <div className="App">
         <Switch>
-          <Route exact path='/login' component={ Login } />
+          <Route exact path='/home' render={ () => (
+              this.props.user ?
+                <Home /> : <Redirect to='/login' />
+            )} />
+          <Route exact path='/login' render={ () => (
+              !this.props.user ?
+                <Login /> : <Redirect to='/home' />
+            )} />
           <Route exact path='/sign_up' component={ SignUp } />
-          <Route exact path='/home' component={ Home } />
           <Route exact path='/profile/:username' component={ ProfilePage } />
           <Route exact path='/profile/:username/:edit' component={ EditProfilePage } />
           <Route exact path='/podcast/:id' component={ PodcastPage } />
@@ -45,4 +51,10 @@ class App extends Component {
   }
 }
 
-export default connect(null, {checkToken})(App);
+const mapStateToProps = state => {
+  return {
+    user: state.user
+  }
+}
+
+export default withRouter(connect(mapStateToProps, {checkToken})(App));

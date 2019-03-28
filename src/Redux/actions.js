@@ -3,13 +3,13 @@ const API_KEY = process.env.REACT_APP_LISTENNOTES_API_KEY
 
 const GENRES_URL = 'https://listennotes.p.rapidapi.com/api/v1/genres'
 
-const RAILS_URL = 'http://localhost:3000/api/v1'
+const RAILS_URL = 'http://localhost:3001/api/v1'
 
 const setGenre = (genres) =>{
   return {type: "GENRE", genres}
 }
 
-//this action uses the results from the ListenNotes API fetch call to create Genres for our own backend API (localhost:3000)
+//this action uses the results from the ListenNotes API fetch call to create Genres for our own backend API (localhost:3001)
 
 // const creatingGenres = (item) =>{
 //   let genre = {
@@ -18,7 +18,7 @@ const setGenre = (genres) =>{
 //     "parent_id": item.parent_id
 //   }
 //   return (dispatch) =>{
-//     fetch('http://localhost:3000/api/v1/genres', {
+//     fetch('http://localhost:3001/api/v1/genres', {
 //       method: 'POST',
 //       headers: {
 //         "Content-type": "application/json",
@@ -42,14 +42,14 @@ export const fetchingGenres = () =>{
 }
 
 /* USER ACTIONS */
-const fetchUser = (user) => {
+export const fetchUser = (user) => {
   return { type: "FETCH_USER", user}
 }
 
 /* existing user login */
 export const fetchingUser = (user) => {
   return (dispatch) => {
-    fetch(`${RAILS_URL}/api/v1/login`, {
+    fetch(`${RAILS_URL}/login`, {
       method: 'POST',
       headers: {
       'Content-Type': 'application/json',
@@ -74,7 +74,7 @@ export const fetchingUser = (user) => {
 
 export const checkToken = (token) => {
   return (dispatch) => {
-    fetch(`${RAILS_URL}/api/v1/home`, {
+    fetch(`${RAILS_URL}/home`, {
     method: "GET",
     headers: {
       "Authentication": `Bearer ${token}`
@@ -92,7 +92,7 @@ export const checkToken = (token) => {
 
 export const signUpUser = (user) => {
   return (dispatch) => {
-    fetch(`${RAILS_URL}/api/v1/new`, {
+    fetch(`${RAILS_URL}/new`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
