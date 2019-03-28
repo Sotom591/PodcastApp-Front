@@ -1,18 +1,30 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { fetchPodcastInfo } from '../Redux/actions'
+
+import PodcastPage from '../Container_Components/PodcastPage'
 
 class Profile extends React.Component {
+  componentDidMount(){
+    if(this.props.user.podcasts){
+      this.props.user.podcasts.forEach( podcast => {
+        this.props.fetchPodcastInfo(podcast.podcast_id)
+      })
+    }
+  }
+
   render(){
     return(
       <div>
         Profile
+        {this.props.user.podcasts ?
         <div>
           {this.props.user.podcasts.map( podcast => (
-            <div key={podcast.podcast_id}>
-              {podcast.podcast_id}
-            </div>
+            <PodcastPage podcast={podcast} key={podcast.podcast_id} />
           ))}
         </div>
+        : null
+      }
       </div>
     )
   }
@@ -24,4 +36,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps)(Profile)
+export default connect(mapStateToProps, { fetchPodcastInfo })(Profile)

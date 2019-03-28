@@ -9,6 +9,45 @@ const setGenre = (genres) =>{
   return {type: "GENRE", genres}
 }
 
+// TEST FETCH TO LISTENNOTES API //
+export const fetchPodcastInfo = (podcastID) => {
+  return (dispatch, getStore) => {
+    unirest.get(`https://listennotes.p.rapidapi.com/api/v1/podcasts/${podcastID}?sort=recent_first`)
+    .header("X-RapidAPI-Key", API_KEY)
+    .end(function (result) {
+      console.log(result.body);
+
+      // find the right podcast and then update it with the ListenNotes info about it //
+      let user = getStore().user
+      let podcasts = user.podcasts.map( podcast => {
+        if(podcast.podcast_id === result.body.id){
+          return {
+            ...podcast,
+            description: result.body.description,
+            episodes: result.body.episodes,
+            explicit_content: result.body.explicit_content,
+            extra: result.body.extra,
+            genres: result.body.genres,
+            image: result.body.image,
+            thumbnail: result.body.thumbnail,
+            title: result.body.title,
+            total_episodes: result.body.total_episodes,
+            website: result.body.website
+          }
+        }
+        else {
+          return podcast
+        }
+      })
+      user.podcasts = podcasts
+      let newUser = {...user}
+      dispatch(fetchUser(newUser))
+    });
+  }
+}
+
+/////////// END OF MIKE'S MAD TESTING //////////////////////////////////
+
 //this action uses the results from the ListenNotes API fetch call to create Genres for our own backend API (localhost:3001)
 
 // const creatingGenres = (item) =>{
