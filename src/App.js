@@ -40,7 +40,9 @@ class App extends Component {
           <Route exact path='/sign_up' component={ SignUp } />
           <Route exact path='/profile/:username' component={ ProfilePage } />
           <Route exact path='/profile/:username/:edit' component={ EditProfilePage } />
-          <Route exact path='/podcast/:id' component={ PodcastPage } />
+          <Route exact path='/podcast/:id' render={ (routerProps) => (
+              <PodcastPage {...routerProps} user={this.props.user} /> 
+            )}/>
           <Route exact path='/podcast/:id/:episode_id' component={ EpisodePage } />
           <Route exact path='/browse' component={Browse} />
           <Route exact path='/genres/:id' component={ GenrePage } />

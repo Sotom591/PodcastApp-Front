@@ -13,9 +13,11 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)))
 
 ReactDOM.render(
+  <Router>
   <Provider store={store}>
-    <Router><App /></Router>
-  </Provider>,
+    <App />
+  </Provider>
+  </Router>,
       document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change

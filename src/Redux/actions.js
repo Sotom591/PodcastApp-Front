@@ -3,6 +3,8 @@ const API_KEY = process.env.REACT_APP_LISTENNOTES_API_KEY
 
 const GENRES_URL = 'https://listennotes.p.rapidapi.com/api/v1/genres'
 
+const LISTENNOTES_URL = 'https://listennotes.p.rapidapi.com/api/v1/'
+
 const RAILS_URL = 'http://localhost:3001/api/v1'
 
 const setGenre = (genres) =>{
@@ -12,7 +14,7 @@ const setGenre = (genres) =>{
 // TEST FETCH TO LISTENNOTES API //
 export const fetchPodcastInfo = (podcastID) => {
   return (dispatch, getStore) => {
-    unirest.get(`https://listennotes.p.rapidapi.com/api/v1/podcasts/${podcastID}?sort=recent_first`)
+    unirest.get(LISTENNOTES_URL + `podcasts/${podcastID}?sort=recent_first`)
     .header("X-RapidAPI-Key", API_KEY)
     .end(function (result) {
       console.log(result.body);
@@ -39,9 +41,31 @@ export const fetchPodcastInfo = (podcastID) => {
           return podcast
         }
       })
+      //create new user so React/Redux can see state has changed //
       user.podcasts = podcasts
       let newUser = {...user}
       dispatch(fetchUser(newUser))
+    });
+  }
+}
+
+export const fetchRecommendedPodcasts = () => {
+  return (dispatch, getStore) => {
+    let user = getStore().user
+    let podcasts = user.podcasts
+    // below function will spit out a random number so we can choose a random podcast //
+    let randomIndex = Math.floor(Math.random() * podcasts.length)
+    let randomPodcast = podcasts[randomIndex]
+    let podcastID = randomPodcast.podcast_id
+
+    unirest.get(LISTENNOTES_URL + `podcasts/${podcastID}/recommendations`)
+    .header("X-RapidAPI-Key", API_KEY)
+    .end(function (result) {
+      console.log(result.body);
+
+      //Figure out what to do with recommended list of podcasts //
+
+
     });
   }
 }
@@ -57,7 +81,7 @@ export const fetchPodcastInfo = (podcastID) => {
 //     "parent_id": item.parent_id
 //   }
 //   return (dispatch) =>{
-//     fetch('http://localhost:3001/api/v1/genres', {
+//     fetch(LISTENNOTES_URL + 'genres', {
 //       method: 'POST',
 //       headers: {
 //         "Content-type": "application/json",

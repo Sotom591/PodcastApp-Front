@@ -2,9 +2,13 @@ import React from 'react'
 
 class Podcast extends React.Component {
   render(){
+    console.log(this.props)
     return(
       <div>
-        {this.props.podcast.title}
+      Podcast
+        {this.props.podcast ?
+          this.props.podcast.title : null
+        }
       </div>
     )
   }
