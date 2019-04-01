@@ -126,8 +126,13 @@ export const fetchingUser = (user) => {
         alert("Incorrect username/password combination")
       } else {
         console.log("Login successful", data)
-        dispatch(fetchUser(data.user_info))
         localStorage.setItem('token', data.token)
+        dispatch(fetchUser(data.user_info))
+
+        // added below to auto update user's podcasts with ListenNotes API info //
+        data.user_info.podcasts.forEach( podcast => {
+          dispatch(fetchPodcastInfo(podcast.podcast_id))
+        })
       }
     })
   }
@@ -147,6 +152,11 @@ export const checkToken = (token) => {
     .then(user => {
       console.log(user)
       dispatch(fetchUser(user))
+
+      // added below to auto update user's podcasts with ListenNotes API info //
+      user.podcasts.forEach( podcast => {
+        dispatch(fetchPodcastInfo(podcast.podcast_id))
+      })
     })
   }
 }

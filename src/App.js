@@ -41,7 +41,7 @@ class App extends Component {
           <Route exact path='/profile/:username' component={ ProfilePage } />
           <Route exact path='/profile/:username/:edit' component={ EditProfilePage } />
           <Route exact path='/podcast/:id' render={ (routerProps) => (
-              <PodcastPage {...routerProps} user={this.props.user} /> 
+              <PodcastPage {...routerProps} user={this.props.user} />
             )}/>
           <Route exact path='/podcast/:id/:episode_id' component={ EpisodePage } />
           <Route exact path='/browse' component={Browse} />
@@ -59,4 +59,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default withRouter(connect(mapStateToProps, {checkToken})(App));
+export default withRouter(connect(mapStateToProps, { checkToken })(App));
