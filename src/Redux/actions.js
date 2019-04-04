@@ -23,7 +23,7 @@ export const fetchPodcastInfo = (podcastID) => {
       let user = getStore().user
       let podcasts = user.podcasts.map( podcast => {
         if(podcast.podcast_id === result.body.id){
-          return {
+          let updatedPodcast = {
             ...podcast,
             description: result.body.description,
             episodes: result.body.episodes,
@@ -36,6 +36,8 @@ export const fetchPodcastInfo = (podcastID) => {
             total_episodes: result.body.total_episodes,
             website: result.body.website
           }
+          dispatch(addToFetchedPodcasts(updatedPodcast))
+          return updatedPodcast
         }
         else {
           return podcast
@@ -47,6 +49,10 @@ export const fetchPodcastInfo = (podcastID) => {
       dispatch(fetchUser(newUser))
     });
   }
+}
+
+const addToFetchedPodcasts = (podcast) => {
+  return { type: "FETCH_PODCAST", podcast }
 }
 
 export const fetchRecommendedPodcasts = () => {
@@ -64,11 +70,10 @@ export const fetchRecommendedPodcasts = () => {
       console.log(result.body);
 
       //Figure out what to do with recommended list of podcasts //
-
-
     });
   }
 }
+
 
 /////////// END OF MIKE'S MAD TESTING //////////////////////////////////
 

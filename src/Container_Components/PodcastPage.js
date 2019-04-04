@@ -1,21 +1,48 @@
 import React from 'react'
 import Podcast from '../Presentational_Components/Podcast'
 import { connect } from 'react-redux'
-import { fetchPodcastInfo } from '../Redux/actions'
+var unirest = require('unirest');
+const API_KEY = process.env.REACT_APP_LISTENNOTES_API_KEY
+const LISTENNOTES_URL = 'https://listennotes.p.rapidapi.com/api/v1/'
+
+
 
 class PodcastPage extends React.Component {
 
-  //this only works if we've already fetched data for each of the user's podcasts from ListenNotes; may need to consider sending another fetch on this page => more expensive performance-wise but makes it so user doesn't have to go to home page first //
+  // this only works if podcast is attached to a user but we want to be able to show its info regardless so need to send a fetch here instead //
 
-  // componentDidMount(){
-  //   let podcastID = this.props.match.params.id
-  //   this.props.fetchPodcastInfo(podcastID)
-  // }
+  state = {
+    podcast: null
+  }
 
-  getPodcast = () => {
-    if(this.props.user){
-      let podcast = this.props.user.podcasts.find(pod => pod.podcast_id === this.props.match.params.id )
-      return <Podcast podcast={podcast} />
+  componentDidMount() {
+    let podcast
+    podcast = this.props.podcasts.find(pod => pod.podcast_id === this.props.match.params.id )
+    if(podcast){
+      this.setState({ podcast: podcast })
+    }
+    else {
+      let podcastID = this.props.match.params.id
+      unirest.get(LISTENNOTES_URL + `podcasts/${podcastID}?sort=recent_first`)
+        .header("X-RapidAPI-Key", API_KEY)
+        .end(function (result) {
+          console.log(result.body);
+
+          podcast = {
+            podcast_id: result.body.id,
+            description: result.body.description,
+            episodes: result.body.episodes,
+            explicit_content: result.body.explicit_content,
+            extra: result.body.extra,
+            genres: result.body.genres,
+            image: result.body.image,
+            thumbnail: result.body.thumbnail,
+            title: result.body.title,
+            total_episodes: result.body.total_episodes,
+            website: result.body.website
+          };
+      })
+      this.setState({ podcast: podcast })
     }
   }
 
@@ -23,7 +50,7 @@ class PodcastPage extends React.Component {
     return(
       <div>
         PodcastPage
-        {this.getPodcast()}
+        <Podcast podcast={this.state.podcast}/>
       </div>
     )
   }
@@ -31,8 +58,8 @@ class PodcastPage extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    user: state.user
+    podcasts: state.podcasts
   }
 }
 
-export default connect(mapStateToProps, { fetchPodcastInfo })(PodcastPage)
+export default connect(mapStateToProps)(PodcastPage)
