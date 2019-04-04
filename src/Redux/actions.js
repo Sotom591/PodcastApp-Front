@@ -51,6 +51,33 @@ export const fetchPodcastInfo = (podcastID) => {
   }
 }
 
+export const fetchingPodcast = (podcastID) => {
+  return (dispatch) => {
+    unirest.get(LISTENNOTES_URL + `podcasts/${podcastID}?sort=recent_first`)
+    .header("X-RapidAPI-Key", API_KEY)
+    .end(function (result) {
+      console.log(result.body);
+
+      // find the right podcast and then update it with the ListenNotes info about it //
+      let podcast = {
+        podcast_id: result.body.id,
+        description: result.body.description,
+        episodes: result.body.episodes,
+        explicit_content: result.body.explicit_content,
+        extra: result.body.extra,
+        genres: result.body.genres,
+        image: result.body.image,
+        thumbnail: result.body.thumbnail,
+        title: result.body.title,
+        total_episodes: result.body.total_episodes,
+        website: result.body.website
+      }
+      dispatch(addToFetchedPodcasts(podcast))
+    })
+  }
+}
+
+
 const addToFetchedPodcasts = (podcast) => {
   return { type: "FETCH_PODCAST", podcast }
 }
