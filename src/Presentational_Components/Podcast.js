@@ -10,7 +10,7 @@ class Podcast extends React.Component {
           <ul>
           Genres:
           {this.props.podcast.genres.map( genre => (
-            <li> {genre} </li>
+            <li key={genre}> {genre} </li>
           ))}
           </ul>
 
@@ -18,7 +18,7 @@ class Podcast extends React.Component {
           <ul>
             Most Recent Episodes:
             {this.props.podcast.episodes.map( episode => (
-              <li> {episode.title} </li>
+              <li key={episode.title}> {episode.title} </li>
             ))}
           </ul>
 

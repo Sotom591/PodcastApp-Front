@@ -1,7 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { fetchUser } from '../Redux/actions'
-
+import AppBar from '@material-ui/core/AppBar'
+import Toolbar from '@material-ui/core/Toolbar';
+import Button from '@material-ui/core/Button';
+import { NavLink } from 'react-router-dom'
 
 class NavBar extends React.Component {
   logout = () => {
@@ -11,15 +14,16 @@ class NavBar extends React.Component {
 
   render(){
     return(
-      <div
-        style={{
-          border: '1px solid black'
-        }}
-        >
-        NavBar
-        <button onClick={this.logout}>
+      <div>
+        <AppBar position='static'>
+          <Toolbar>
+          NavBar
+          <NavLink exact to='/home'> Home </NavLink>
+        <Button onClick={this.logout}>
           Logout
-        </button>
+        </Button>
+      </Toolbar>
+      </AppBar>
       </div>
     )
   }
