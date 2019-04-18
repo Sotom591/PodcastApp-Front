@@ -77,6 +77,18 @@ export const fetchingPodcast = (podcastID) => {
   }
 }
 
+//
+//
+// fetch for Episode
+// unirest.get("https://listennotes.p.rapidapi.com/api/v1/episodes/7fbabe370daf4e34a225bce232764f96")
+// .header("X-RapidAPI-Host", "listennotes.p.rapidapi.com")
+// .header("X-RapidAPI-Key", "SIGN-UP-FOR-KEY")
+// .end(function (result) {
+//   console.log(result.status, result.headers, result.body);
+// });
+//
+// description id image thumbnail title
+//
 
 const addToFetchedPodcasts = (podcast) => {
   return { type: "FETCH_PODCAST", podcast }
